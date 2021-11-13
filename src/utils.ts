@@ -3,12 +3,32 @@ import { Coords } from "../types"
 export const coords = (_x: number, _y: number): Coords => ({ x: _x, y: _x })
 
 export const iterate = (_x: number, _y: number, callback: (coords: Coords) => void) => {
-  console.log("iterate called");
   for (let x = 0; x < _x; x++) {
     for (let y = 0; y < _y; y++) {
-      console.log("Callback", x, y)
       callback({ x, y });
     }
   }
 
 }
+
+export const fromTo = (start, end, callback: (num: number) => void) => {
+  for (let i = start; i <= end; i++) {
+    callback(i);
+  }
+}
+
+export const pick = <T>(arr: T[]): T => {
+  if (arr.length === 0) {
+    return undefined;
+  }
+
+  const index = getRandomInt(arr.length - 1)
+
+  if (index === undefined) {
+    return undefined;
+  }
+
+  return arr[index];
+}
+
+export const getRandomInt = (max: number) => Math.floor(Math.random() * max)

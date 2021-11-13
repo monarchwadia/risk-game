@@ -10,15 +10,15 @@ const drawRect = (ctx: CanvasRenderingContext2D, {x, y}: Coords, color: string) 
 }
 
 const render = (state: State) => {
-  console.log("render called")
-
   const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d');
 
+  // draw board
   iterate(state.camera.size.x, state.camera.size.y, ({x, y}) => {
     drawRect(ctx, {x, y}, `lightgrey`)
   })
 
+  // draw players
   state.players.forEach(player => {
     player.cells.forEach(({x, y}) => {
       drawRect(ctx, {x, y}, player.color)

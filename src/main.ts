@@ -1,4 +1,5 @@
 import { State } from "../types";
+import play from "./play";
 import render from "./render";
 import { coords } from "./utils";
 
@@ -27,4 +28,9 @@ const state: State = {
   },
 };
 
-render(state);
+const tick = () => {
+  play(state);
+  render(state);
+}
+
+setInterval(() => tick(), 1000)
