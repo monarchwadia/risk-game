@@ -1,4 +1,5 @@
 import { State } from "../types";
+import { TICK_INTERVAL } from "./constants";
 import play from "./play";
 import render from "./render";
 import { coords } from "./utils";
@@ -6,19 +7,9 @@ import { coords } from "./utils";
 const state: State = {
   players: [
     {
-      color: 'red',
-      cells: [
-        coords(0,0),
-        coords(0,1),
-        coords(0,2)
-      ],
-    },
-    {
       color: 'blue',
       cells: [
-        coords(5, 5),
-        coords(5, 6),
-        coords(5, 7),
+        coords(20, 20),
       ]
     }
   ]
@@ -30,4 +21,4 @@ const tick = () => {
 }
 
 // start
-setInterval(() => tick(), 100)
+setInterval(() => tick(), TICK_INTERVAL)

@@ -1,61 +1,58 @@
 import { Coords, Player, State } from "../types";
+import CoordinateSet from "./grid/CoordinateSet";
 import { fromTo, iterate, pick } from "./utils";
 
 // first x, then y
 type PossibleMoves = Record<number, Record<number, boolean>>;
 
 const getPossibleMoves = (player: Player, state: State): Coords[] => {
-  const decisionTree: PossibleMoves = {};
-  const possibleMoves: Coords[] = [];
+  const decisionTree = new CoordinateSet();
 
+  // create a tree of all unique cells that are adjacent to any cell that this player owns, regardless of whether they're occupied.
   player.cells.forEach(cell => {
     fromTo(-1, 1, (x) => {
       fromTo(-1, 1, (y) => {
-        decisionTree[cell.x + x] ||= {};
-        decisionTree[cell.x + x][cell.y + y] ||= true;
+        decisionTree.add(x,y);
       })
     });
   });
 
-  // player-occupied cells are not a possible move
+  // second pass: player-occupied cells are not a possible move, so remove them
   player.cells.forEach(cell => {
-    if (decisionTree[cell.x] !== undefined) {
-      decisionTree[cell.x][cell.y] = false;
-    }
+    decisionTree.remove(cell.x, cell.y);
   })
 
-  // other-occupied cells cannot be attacked... for now
+  // other-occupied cells cannot be attacked... for now... so remove them
   state.players.forEach(other => {
     // ignore self
     if (other === player) {
       return;
     }
 
-    console.log('other cells length', other.cells.length)
     other.cells.forEach((cell, i) => {
-      if (decisionTree[cell.x] !== undefined) {
-        decisionTree[cell.x][cell.y] = false;
-      }
+      decisionTree.remove(cell.x, cell.y);
     })
-  })
+  });
 
-  Object.keys(decisionTree).forEach(x => {
-    Object.keys(decisionTree[x]).forEach(y => {
-      if (decisionTree[x][y] === true) {
-        possibleMoves.push({ x: +x, y: +y });
-      }
-    });
-  })
+  // // only return
+  // Object.keys(decisionTree).forEach(x => {
+  //   Object.keys(decisionTree[x]).forEach(y => {
+  //     if (decisionTree[x][y] === true) {
+  //       possibleMoves.push({ x: +x, y: +y });
+  //     }
+  //   });
+  // })
 
-  return possibleMoves;
+  // return possibleMoves;
+
+  return []
 }
 
 const play = (state: State) => {
   state.players.forEach(player => {
+    // do moves
     const possibleMoves = getPossibleMoves(player, state);
-    console.log('possibleMoves', possibleMoves);
     const move = pick(possibleMoves);
-    console.log('move', move);
     player.cells.push(move);
   })
 }
