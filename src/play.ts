@@ -2,9 +2,6 @@ import { Coords, Player, State } from "../types";
 import CoordinateSet from "./grid/CoordinateSet";
 import { fromTo, iterate, pick } from "./utils";
 
-// first x, then y
-type PossibleMoves = Record<number, Record<number, boolean>>;
-
 const getPossibleMoves = (player: Player, state: State): Coords[] => {
   const decisionTree = new CoordinateSet();
 
@@ -12,7 +9,7 @@ const getPossibleMoves = (player: Player, state: State): Coords[] => {
   player.cells.forEach(cell => {
     fromTo(-1, 1, (x) => {
       fromTo(-1, 1, (y) => {
-        decisionTree.add(x,y);
+        decisionTree.add(cell.x + x, cell.y + y);
       })
     });
   });
@@ -34,18 +31,7 @@ const getPossibleMoves = (player: Player, state: State): Coords[] => {
     })
   });
 
-  // // only return
-  // Object.keys(decisionTree).forEach(x => {
-  //   Object.keys(decisionTree[x]).forEach(y => {
-  //     if (decisionTree[x][y] === true) {
-  //       possibleMoves.push({ x: +x, y: +y });
-  //     }
-  //   });
-  // })
-
-  // return possibleMoves;
-
-  return []
+  return decisionTree.toArray()
 }
 
 const play = (state: State) => {
