@@ -13,11 +13,6 @@ const render = (state: State) => {
   const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d');
 
-  // draw board
-  iterate(state.camera.size.x, state.camera.size.y, ({x, y}) => {
-    drawRect(ctx, {x, y}, `lightgrey`)
-  })
-
   // draw players
   state.players.forEach(player => {
     player.cells.forEach(({x, y}) => {

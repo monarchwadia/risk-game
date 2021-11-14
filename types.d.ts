@@ -4,11 +4,7 @@ export type Player = {
 }
 
 export type State = {
-  players: Player[],
-  camera: {
-    focus: Coords,
-    size: Coords
-  }
+  players: Player[]
 }
 
 export type Coords = {

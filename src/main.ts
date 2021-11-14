@@ -21,11 +21,7 @@ const state: State = {
         coords(5, 7),
       ]
     }
-  ],
-  camera: {
-    focus: coords(0,0),
-    size: coords(10,10)
-  },
+  ]
 };
 
 const tick = () => {
@@ -33,4 +29,5 @@ const tick = () => {
   render(state);
 }
 
+// start
 setInterval(() => tick(), 100)
