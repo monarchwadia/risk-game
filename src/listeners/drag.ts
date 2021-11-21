@@ -31,6 +31,28 @@ const dragHoc = (state: State, onDrag: () => void) => {
     onDrag();
   })
 
+  canvas.addEventListener('wheel', (evt) => {
+    console.log('wheel event triggered');
+    const event = evt as unknown as WheelEvent;
+    
+    evt.preventDefault();
+    // const SCALER = 5;
+    // const diff = Math.round(event.deltaY / SCALER);
+    const diff = event.deltaY === 0 
+      ? 0 
+      : event.deltaY > 0
+        ? 1
+        : -1;
+
+      
+    state.camera.zoom = Math.min(Math.max(state.camera.zoom + diff, 3), 7);
+    // state.camera.origin.x += diff / 2;
+    // state.camera.origin.y += diff / 2;
+
+
+    onDrag()
+  })
+
   canvas.addEventListener('mouseup', () => {
     isDrawing = false;
     state.camera.origin = lastCameraOrigin;

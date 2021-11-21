@@ -1,3 +1,5 @@
+import "./reset.css"
+
 import { State } from "../types";
 import { TICK_INTERVAL } from "./constants";
 import play from "./play";
@@ -17,17 +19,20 @@ const state: State = {
     }
   ],
   camera: {
-    origin: coords(-100,-100)
+    origin: coords(-100,-100),
+    zoom: 5
   }
 };
 
-const tick = () => {
-  play(state);
-  render(state);
-}
+// start game
+setInterval(() => play(state), TICK_INTERVAL)
 
-// start
-setInterval(() => tick(), TICK_INTERVAL)
+// start animation
+const doRender = () => {
+  render(state);
+  requestAnimationFrame(doRender);
+}
+requestAnimationFrame(doRender)
 
 // listen for resizes
 window.addEventListener('resize', () => {

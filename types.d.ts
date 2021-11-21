@@ -10,6 +10,7 @@ export type Player = {
 
 export type Camera = {
   origin: Coords,
+  zoom: number
 }
 
 export type State = {
