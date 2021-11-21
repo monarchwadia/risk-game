@@ -1,6 +1,14 @@
 import { Coords } from "../types"
 
 export const coords = (_x: number, _y: number): Coords => ({ x: _x, y: _x })
+export const addCoords = (a: Coords, b: Coords): Coords => ({
+  x: a.x + b.x,
+  y: a.y + b.y,
+})
+export const subtractCoords = (a: Coords, b: Coords): Coords => ({
+  x: a.x - b.x,
+  y: a.y - b.y,
+})
 
 export const iterate = (_x: number, _y: number, callback: (coords: Coords) => void) => {
   for (let x = 0; x < _x; x++) {

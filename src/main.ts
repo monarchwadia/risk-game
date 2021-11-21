@@ -4,6 +4,8 @@ import play from "./play";
 import render from "./render";
 import resize from "./listeners/resize";
 import { coords } from "./utils";
+import dragHoc from "./listeners/drag";
+import clearCanvas from "./clearCanvas";
 
 const state: State = {
   players: [
@@ -32,3 +34,8 @@ window.addEventListener('resize', () => {
   resize();
 })
 resize();
+
+// listener for dragging
+dragHoc(state, () => {
+  clearCanvas()
+});

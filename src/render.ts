@@ -1,19 +1,11 @@
-import { Color } from "p5";
-import { Camera, Coords, Player, State } from "../types";
+import { Coords, State } from "../types";
 import { SQUARE_BORDER, SQUARE_HEIGHT, SQUARE_WIDTH } from "./constants";
-import { iterate } from "./utils";
+import {  subtractCoords } from "./utils";
 
 const drawRect = (ctx: CanvasRenderingContext2D, {x, y}: Coords, color: string) => {
   ctx.strokeStyle = color;
   ctx.fillStyle = color;
   ctx.fillRect(x * SQUARE_HEIGHT, y * SQUARE_HEIGHT, (SQUARE_HEIGHT - SQUARE_BORDER), (SQUARE_WIDTH - SQUARE_BORDER))
-}
-
-const transpose = (camera: Camera, original: Coords): Coords => {
-  return {
-    x: original.x - camera.origin.x,
-    y: original.y - camera.origin.y
-  }
 }
 
 const render = (state: State) => {
@@ -24,10 +16,12 @@ const render = (state: State) => {
     return;
   }
 
+  console.log(`ctx`, state.camera.origin)
+
   // draw players
   state.players.forEach(player => {
     player.cells.forEach((coords) => {
-      const { x, y } = transpose(state.camera, coords);
+      const { x, y } = subtractCoords(coords, state.camera.origin)
       drawRect(ctx, {x, y}, player.color)
     })
   })
