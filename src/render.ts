@@ -13,6 +13,10 @@ const render = (state: State) => {
   const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d');
 
+  if (!ctx) {
+    return;
+  }
+
   // draw players
   state.players.forEach(player => {
     player.cells.forEach(({x, y}) => {
