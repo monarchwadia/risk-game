@@ -26,7 +26,7 @@ const dragHoc = (state: State, onDrag: () => void) => {
 
     const transposition: Coords = subtractCoords(clickCoords, clickOrigin);
     lastCameraOrigin = state.camera.origin;
-    state.camera.origin = addCoords(cameraOrigin, transposition);
+    state.camera.origin = subtractCoords(cameraOrigin, transposition);
 
     onDrag();
   })
