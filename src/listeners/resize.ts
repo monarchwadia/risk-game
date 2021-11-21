@@ -1,5 +1,3 @@
-import { SQUARE_HEIGHT, SQUARE_WIDTH } from "./constants";
-
 const resize = () => {
   const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 

@@ -2,7 +2,7 @@ import { State } from "../types";
 import { TICK_INTERVAL } from "./constants";
 import play from "./play";
 import render from "./render";
-import resize from "./resize";
+import resize from "./listeners/resize";
 import { coords } from "./utils";
 
 const state: State = {
@@ -13,7 +13,10 @@ const state: State = {
         coords(20, 20),
       ]
     }
-  ]
+  ],
+  camera: {
+    origin: coords(-100,-100)
+  }
 };
 
 const tick = () => {
