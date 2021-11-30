@@ -16,6 +16,12 @@ const state: State = {
       cells: [
         coords(20, 20),
       ]
+    },
+    {
+      color: 'red',
+      cells: [
+        coords(15, 15),
+      ]
     }
   ],
   camera: {
@@ -29,6 +35,7 @@ setInterval(() => play(state), TICK_INTERVAL)
 
 // start animation
 const doRender = () => {
+  clearCanvas();
   render(state);
   requestAnimationFrame(doRender);
 }
@@ -37,6 +44,7 @@ requestAnimationFrame(doRender)
 // listen for resizes
 window.addEventListener('resize', () => {
   resize();
+  clearCanvas();
 })
 resize();
 

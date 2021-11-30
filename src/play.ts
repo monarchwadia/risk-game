@@ -1,6 +1,6 @@
 import { Coords, Player, State } from "../types";
 import CoordinateSet from "./grid/CoordinateSet";
-import { fromTo, iterate, pick } from "./utils";
+import { fromTo, getRandomInt, iterate, pick } from "./utils";
 
 const getPossibleMoves = (player: Player, state: State): Coords[] => {
   const decisionTree = new CoordinateSet();
@@ -35,11 +35,23 @@ const getPossibleMoves = (player: Player, state: State): Coords[] => {
 }
 
 const play = (state: State) => {
+  // do moves
   state.players.forEach(player => {
-    // do moves
     const possibleMoves = getPossibleMoves(player, state);
     const move = pick(possibleMoves);
     player.cells.push(move);
+  })
+
+  // randomly kill one cell each turn
+  state.players.forEach(player => {
+    const numberOfCellsToKill = getRandomInt(10);
+    if (numberOfCellsToKill >= player.cells.length / 100) {
+      return;
+    }
+
+    const numberOfCells = player.cells.length;
+    const randomCellIndex = getRandomInt(numberOfCells);
+    player.cells.splice(randomCellIndex, 1);
   })
 }
 
