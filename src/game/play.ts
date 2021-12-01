@@ -1,12 +1,15 @@
 import { State } from "../types";
-import makeMove from "./makeMove";
 import entropy from "./entropy";
+import aggressor from "../ai/aggressor";
+import getPossibleMoves from "./getPossibleMoves";
 
 const play = (state: State) => {
   state.players.forEach(player => {
+    // get all possible moves
+    const possibleMoves = getPossibleMoves(player, state);
 
     // let the player pick a move
-    const move = makeMove(player, state);
+    const move = aggressor({player, state, possibleMoves});
 
     // process the move
     switch(move.type) {

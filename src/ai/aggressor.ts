@@ -1,11 +1,7 @@
-import { Player, PossibleMove, State } from "../types";
+import { Ai, PossibleMove } from "../types";
 import { pick } from "../utils";
-import getPossibleMoves from "./getPossibleMoves";
 
-const makeMove = (player: Player, state: State): PossibleMove => {
-  // analyze possible moves
-  const possibleMoves = getPossibleMoves(player, state);
-
+const aggressor: Ai = ({possibleMoves}): PossibleMove => {
   // choose a move based on some logic, and return it
   let tentativeMove: PossibleMove | undefined;
   
@@ -27,4 +23,4 @@ const makeMove = (player: Player, state: State): PossibleMove => {
   return tentativeMove;
 }
 
-export default makeMove;
+export default aggressor;

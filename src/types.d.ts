@@ -5,7 +5,8 @@ export type Coords = {
 
 export type Player = {
   color: string,
-  cells: Coords[]
+  cells: Coords[],
+  ai: Ai
 }  
 
 export type Camera = {
@@ -35,3 +36,5 @@ export type PossibleMove =
     coords: Coords
   }
 }
+
+export type Ai = (props: {possibleMoves: PossibleMove[], player: Player, state: State}) =>  PossibleMove;
