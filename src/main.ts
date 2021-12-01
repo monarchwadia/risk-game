@@ -3,11 +3,11 @@ import "./reset.css"
 import { State } from "../types";
 import { TICK_INTERVAL } from "./constants";
 import play from "./game/play";
-import render from "./components/render";
+import render from "./view/render";
 import resize from "./listeners/resize";
 import { coords } from "./utils";
 import dragHoc from "./listeners/drag";
-import clearCanvas from "./components/clearCanvas";
+import clearCanvas from "./view/clearCanvas";
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 
