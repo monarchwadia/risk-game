@@ -10,7 +10,7 @@
     "dev": "parcel serve index.html",
     "test": "jest",
     "tdd": "jest --watch",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --dist-dir public"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
