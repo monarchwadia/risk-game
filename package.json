@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev": "parcel serve index.html",
-    "test": "jest"
+    "test": "jest",
+    "tdd": "jest --watch"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",

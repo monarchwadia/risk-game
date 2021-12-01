@@ -18,11 +18,20 @@ export type State = {
   camera: Camera
 }  
 
-export type PossibleMoves = Coords[];
-
-export type PossibleMove = {
+export type PossibleMove = 
+| {
+  type: "ATTACK"
   targetCell: {
     coords: Coords,
     owner: Player
   },
+}
+| {
+  type: "PASS"
+}
+| {
+  type: "COLONIZE",
+  targetCell: {
+    coords: Coords
+  }
 }

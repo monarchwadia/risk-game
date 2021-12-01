@@ -1,38 +1,72 @@
-import { Coords, Player, State } from "../types";
+import { Player, PossibleMove, State } from "../types";
 import CoordinateSet from "../data/CoordinateSet";
-import { PossibleMoves } from "../types";
-import { fromTo } from "../utils";
+import { coords, fromTo } from "../utils";
 
-const getPossibleMoves = (player: Player, state: State): PossibleMoves => {
-  const decisionTree = new CoordinateSet();
+const getPossibleMoves = (player: Player, state: State): PossibleMove[] => {
+  // const decisionTree = new CoordinateSet<PossibleMove>();
 
-  // create a tree of all unique cells that are adjacent to any cell that this player owns, regardless of whether they're occupied.
+  // Make a 'map' of all occupied cells
+  const occupiedCells = new CoordinateSet<Player>();
+  state.players.forEach(player => {
+    player.cells.forEach(cell => {
+      occupiedCells.add(cell.x, cell.y, player);
+    })
+  })
+
+  // ADDRESSABLE CELLS STEP 1
+  // create a tree of all unique cells that are adjacent to any cell that this 
+  // player owns, regardless of whether they're occupied.
+  const addressableTree = new CoordinateSet<boolean>();
   player.cells.forEach(cell => {
     fromTo(-1, 1, (x) => {
       fromTo(-1, 1, (y) => {
-        decisionTree.add(cell.x + x, cell.y + y);
+        addressableTree.add(cell.x + x, cell.y + y, true);
       })
     });
   });
 
+  // ADDRESSABLE CELLS STEP 2
   // second pass: player-occupied cells are not a possible move, so remove them
   player.cells.forEach(cell => {
-    decisionTree.remove(cell.x, cell.y);
+    addressableTree.remove(cell.x, cell.y);
   })
 
-  // other-occupied cells cannot be attacked... for now... so remove them
-  state.players.forEach(other => {
-    // ignore self
-    if (other === player) {
-      return;
-    }
+  const addressableArr = addressableTree.toArray().filter(c => c.val === true);
 
-    other.cells.forEach((cell, i) => {
-      decisionTree.remove(cell.x, cell.y);
-    })
+  // DECISIONS
+  // other-occupied cells can be attacked
+  const decisionTree = new CoordinateSet<PossibleMove>();
+  addressableArr.forEach(({x, y}) => {
+    if (occupiedCells.has(x, y)) {
+      const player = occupiedCells.get(x, y);
+
+      // handling weird edge case for Typescript's sake
+      if (!player) return;
+
+      decisionTree.add(x, y, {
+        type: "ATTACK",
+        targetCell: {
+          coords: coords(x,y),
+          owner: player
+        }
+      })
+    } else {
+      decisionTree.add(x, y, {
+        type: "COLONIZE",
+        targetCell: {
+          coords: coords(x,y)
+        }
+      })
+    }
   });
 
-  return decisionTree.toArray()
+  // ADD POSSIBILITY OF PASSING THE TURN
+  const possibleMoves = decisionTree.toArray().map(c => c.val);
+  possibleMoves.push({
+    type: "PASS"
+  });
+
+  return possibleMoves;
 }
 
 export default getPossibleMoves;
