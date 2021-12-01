@@ -2,7 +2,9 @@ import { Coords, Player, State } from "../../types";
 import CoordinateSet from "../data/CoordinateSet";
 import { fromTo } from "../utils";
 
-const getPossibleMoves = (player: Player, state: State): Coords[] => {
+type PossibleMoves = Coords[];
+
+const getPossibleMoves = (player: Player, state: State): PossibleMoves => {
   const decisionTree = new CoordinateSet();
 
   // create a tree of all unique cells that are adjacent to any cell that this player owns, regardless of whether they're occupied.
