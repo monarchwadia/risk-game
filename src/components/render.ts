@@ -1,6 +1,7 @@
-import { Coords, State } from "../types";
-import { SQUARE_BORDER, SQUARE_HEIGHT, SQUARE_WIDTH } from "./constants";
-import {  subtractCoords } from "./utils";
+import { Camera, Coords, State } from "../../types";
+import { Component } from "./component.type";
+import { SQUARE_BORDER } from "../constants";
+import {  subtractCoords } from "../utils";
 
 const drawRect = (ctx: CanvasRenderingContext2D, coords: Coords, color: string, camera: Camera) => {
   const { x, y } = subtractCoords(coords, camera.origin)
@@ -9,7 +10,7 @@ const drawRect = (ctx: CanvasRenderingContext2D, coords: Coords, color: string, 
   ctx.fillRect(x * camera.zoom, y * camera.zoom, (camera.zoom - SQUARE_BORDER), (camera.zoom - SQUARE_BORDER))
 }
 
-const render = (state: State) => {
+const render: Component<{ state: State}> = ({state}) => {
   const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d');
 

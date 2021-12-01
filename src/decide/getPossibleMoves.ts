@@ -1,5 +1,5 @@
 import { Coords, Player, State } from "../../types";
-import CoordinateSet from "../grid/CoordinateSet";
+import CoordinateSet from "../data/CoordinateSet";
 import { fromTo } from "../utils";
 
 const getPossibleMoves = (player: Player, state: State): Coords[] => {
