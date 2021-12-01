@@ -1,7 +1,6 @@
 {
   "name": "risk-game",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "Monarch Wadia",
   "license": "MIT",
   "dependencies": {
@@ -10,7 +9,8 @@
   "scripts": {
     "dev": "parcel serve index.html",
     "test": "jest",
-    "tdd": "jest --watch"
+    "tdd": "jest --watch",
+    "build": "parcel build index.html"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
