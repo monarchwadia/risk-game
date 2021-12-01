@@ -1,10 +1,17 @@
 import { State } from "../../types";
-import decide from ".";
+import makeMove from "./makeMove";
 import entropy from "./entropy";
 
 const play = (state: State) => {
   state.players.forEach(player => {
-    decide(player, state);
+    
+    // let the player pick a move
+    const move = makeMove(player, state);
+
+    // process the move
+    if (move) {
+      player.cells.push(move);
+    }
   });
   
   entropy(state);

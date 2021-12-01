@@ -2,17 +2,12 @@ import { Player, State } from "../../types";
 import { pick } from "../utils";
 import getPossibleMoves from "./getPossibleMoves";
 
-const decide = (player: Player, state: State) => {
+const makeMove = (player: Player, state: State) => {
   // analyze possible moves
   const possibleMoves = getPossibleMoves(player, state);
 
-  // choose a move based on some logic
-  const move = pick(possibleMoves);
-
-  // make the move
-  if (move) {
-    player.cells.push(move);
-  }
+  // choose a move based on some logic, and return it
+  return pick(possibleMoves);
 }
 
-export default decide;
+export default makeMove;
