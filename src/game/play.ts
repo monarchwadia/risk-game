@@ -9,7 +9,7 @@ const play = (state: State) => {
     const move = makeMove(player, state);
 
     // process the move
-    switch(move?.type) {
+    switch(move.type) {
       case "ATTACK":
         // player.cells.push(move.targetCell.coords);
         move.targetCell.owner.cells = move.targetCell.owner.cells.filter(cell => cell.x !== move.targetCell.coords.x || cell.y !== move.targetCell.coords.y)
