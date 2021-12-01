@@ -1,4 +1,4 @@
-import { Coords } from "../types"
+import { Coords } from "./types"
 
 export const coords = (_x: number, _y: number): Coords => ({ x: _x, y: _y })
 export const addCoords = (a: Coords, b: Coords): Coords => ({

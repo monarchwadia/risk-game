@@ -1,4 +1,4 @@
-import { Coords, State } from "../../types";
+import { Coords, State } from "../types";
 import { addCoords, subtractCoords } from "../utils";
 
 const dragHoc = (state: State, onDrag: () => void) => {

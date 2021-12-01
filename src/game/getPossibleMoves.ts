@@ -1,8 +1,7 @@
-import { Coords, Player, State } from "../../types";
+import { Coords, Player, State } from "../types";
 import CoordinateSet from "../data/CoordinateSet";
+import { PossibleMoves } from "../types";
 import { fromTo } from "../utils";
-
-type PossibleMoves = Coords[];
 
 const getPossibleMoves = (player: Player, state: State): PossibleMoves => {
   const decisionTree = new CoordinateSet();

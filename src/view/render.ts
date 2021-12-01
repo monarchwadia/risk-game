@@ -1,4 +1,4 @@
-import { Camera, Coords, State } from "../../types";
+import { Camera, Coords, State } from "../types";
 import { Component } from "./component.type";
 import { SQUARE_BORDER } from "../constants";
 import {  subtractCoords } from "../utils";

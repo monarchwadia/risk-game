@@ -1,4 +1,4 @@
-import { Player, State } from "../../types";
+import { Player, State } from "../types";
 import { pick } from "../utils";
 import getPossibleMoves from "./getPossibleMoves";
 

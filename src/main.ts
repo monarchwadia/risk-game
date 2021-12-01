@@ -1,6 +1,6 @@
 import "./reset.css"
 
-import { State } from "../types";
+import { State } from "./types";
 import { TICK_INTERVAL } from "./constants";
 import play from "./game/play";
 import render from "./view/render";

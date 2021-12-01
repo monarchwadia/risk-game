@@ -1,4 +1,4 @@
-import { Player, State } from "../../types";
+import { Player, State } from "../types";
 import { getRandomInt } from "../utils";
 
 const entropy = ( state: State) => {
