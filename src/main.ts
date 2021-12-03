@@ -9,6 +9,7 @@ import { coords } from "./utils";
 import dragHoc from "./listeners/drag";
 import clearCanvas from "./view/clearCanvas";
 import aggressor from "./ai/aggressor";
+import scaredycat from "./ai/scaredycat";
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 
@@ -16,7 +17,7 @@ const state: State = {
   players: [
     {
       color: 'blue',
-      ai: aggressor,
+      ai: scaredycat,
       cells: [
         coords(20, 20),
       ],
@@ -26,6 +27,13 @@ const state: State = {
       ai: aggressor,
       cells: [
         coords(15, 15),
+      ]
+    },
+    {
+      color: 'green',
+      ai: aggressor,
+      cells: [
+        coords(25, 25),
       ]
     }
   ],

@@ -9,7 +9,7 @@ const play = (state: State) => {
     const possibleMoves = getPossibleMoves(player, state);
 
     // let the player pick a move
-    const move = aggressor({player, state, possibleMoves});
+    const move = player.ai({player, state, possibleMoves});
 
     // process the move
     switch(move.type) {
