@@ -2,17 +2,7 @@ import { Player, PossibleMove, State } from "../types";
 import CoordinateSet from "../data/CoordinateSet";
 import { coords, fromTo } from "../utils";
 
-const getPossibleMoves = (player: Player, state: State): PossibleMove[] => {
-  // const decisionTree = new CoordinateSet<PossibleMove>();
-
-  // Make a 'map' of all occupied cells
-  const occupiedCells = new CoordinateSet<Player>();
-  state.players.forEach(player => {
-    player.cells.forEach(cell => {
-      occupiedCells.add(cell.x, cell.y, player);
-    })
-  })
-
+const getPossibleMoves = (player: Player, state: State, occupiedCells: CoordinateSet<Player>): PossibleMove[] => {
   // ADDRESSABLE CELLS STEP 1
   // create a tree of all unique cells that are adjacent to any cell that this 
   // player owns, regardless of whether they're occupied.

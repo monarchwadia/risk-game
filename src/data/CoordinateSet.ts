@@ -42,6 +42,20 @@ export default class CoordinateSet<T> {
     return true;
   }
 
+  /**
+   * 
+   * @param x The x coordinate
+   * @param y The y coordinate
+   * @param callback Use this callback to set the new value. No-op if it returns undefined.
+   */
+  modify(x: number, y: number, callback: (val: T | undefined) => T | undefined) {
+    const oldVal = this.get(x, y);
+    const newVal = callback(oldVal);
+    if (newVal !== undefined) {
+      this.add(x, y, newVal)
+    }
+  }
+
   toArray() {
     type CoordinateArray = {x: number, y: number, val: T}[]
     const arr: CoordinateArray = [];

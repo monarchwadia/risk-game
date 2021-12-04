@@ -1,3 +1,5 @@
+import CoordinateSet from "./data/CoordinateSet"
+
 export type Coords = {
   x: number,
   y: number
@@ -37,4 +39,4 @@ export type PossibleMove =
   }
 }
 
-export type Ai = (props: {possibleMoves: PossibleMove[], player: Player, state: State}) =>  PossibleMove;
+export type Ai = (props: {possibleMoves: PossibleMove[], player: Player, state: State, occupiedCells: CoordinateSet<Player>}) =>  PossibleMove;

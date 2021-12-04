@@ -1,15 +1,24 @@
-import { State } from "../types";
+import { Player, State } from "../types";
 import entropy from "./entropy";
 import aggressor from "../ai/aggressor";
 import getPossibleMoves from "./getPossibleMoves";
+import CoordinateSet from "../data/CoordinateSet";
 
 const play = (state: State) => {
+    // Make a 'map' of all occupied cells
+    const occupiedCells = new CoordinateSet<Player>();
+    state.players.forEach(player => {
+      player.cells.forEach(cell => {
+        occupiedCells.add(cell.x, cell.y, player);
+      })
+    })
+    
   state.players.forEach(player => {
     // get all possible moves
-    const possibleMoves = getPossibleMoves(player, state);
+    const possibleMoves = getPossibleMoves(player, state, occupiedCells);
 
     // let the player pick a move
-    const move = player.ai({player, state, possibleMoves});
+    const move = player.ai({player, state, possibleMoves, occupiedCells});
 
     // process the move
     switch(move.type) {
