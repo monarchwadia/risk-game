@@ -42,4 +42,6 @@ export type PossibleMove =
   }
 }
 
+export type MoveType = PossibleMove['type'];
+
 export type Ai = (props: {possibleMoves: PossibleMove[], player: Player, state: State, occupiedCells: CoordinateSet<Player>}) =>  PossibleMove;

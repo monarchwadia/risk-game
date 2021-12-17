@@ -1,6 +1,12 @@
 import CoordinateSet from "../data/CoordinateSet";
-import { Ai, Coords, PossibleMove } from "../types";
+import { Ai, Coords, MoveType, PossibleMove } from "../types";
 import { pick } from "../utils";
+
+const PRIORITIES: Record<MoveType, number> = {
+  "ATTACK": 1000,
+  "COLONIZE": 500,
+  "PASS": 0
+}
 
 class GridBucket {
   coordinateSet: CoordinateSet<number>;
@@ -64,15 +70,9 @@ const smartAggressor: Ai = ({player: self, possibleMoves, occupiedCells}): Possi
   let pickedMove: PossibleMove | undefined;
 
   if (bestCoord) {
-    // higher is better
-    const moveOrder = {
-      "ATTACK": 1000,
-      "COLONIZE": 500,
-      "PASS": 0
-    }
     const sortedArr = possibleMoves.sort((a, b) => {
-      if(moveOrder[a.type] !== moveOrder[b.type]) {
-        return (moveOrder[b.type] - moveOrder[a.type]);
+      if(PRIORITIES[a.type] !== PRIORITIES[b.type]) {
+        return (PRIORITIES[b.type] - PRIORITIES[a.type]);
       }
 
       const aScore: number = a.type === "PASS"
@@ -88,6 +88,7 @@ const smartAggressor: Ai = ({player: self, possibleMoves, occupiedCells}): Possi
     });
 
     pickedMove = sortedArr[0];
+    console.log("PICKED MOVE", pickedMove)
   } else {
     // there are no enemies, probably. Do anything.
     pickedMove = pick(possibleMoves)
