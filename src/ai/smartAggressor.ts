@@ -10,10 +10,9 @@ class GridBucket {
   }
 
   increment(x: number, y: number) {
-    const _x = Math.floor(x / this.bucketSize);
-    const _y = Math.floor(y / this.bucketSize);
+    const bucketIndex = this.getBucketIndex({x, y});
 
-    this.coordinateSet.modify(_x, _y, (oldVal) => {
+    this.coordinateSet.modify(bucketIndex.x, bucketIndex.y, (oldVal) => {
       if (oldVal === undefined) {
         return 0;
       } else {
@@ -33,9 +32,20 @@ class GridBucket {
 
     return sortedCoords[0];
   }
+
+  getScoreOfBucket(bucketCoords: Coords) {
+    const {x, y} = this.getBucketIndex(bucketCoords);
+    return this.coordinateSet.get(x, y)
+  }
+
+  private getBucketIndex(coords: Coords): Coords {
+    const x = Math.floor(coords.x / this.bucketSize);
+    const y = Math.floor(coords.y / this.bucketSize);
+    return {x, y};
+  }
 }
 
-const aggressor: Ai = ({player: self, possibleMoves, occupiedCells}): PossibleMove => {
+const smartAggressor: Ai = ({player: self, possibleMoves, occupiedCells}): PossibleMove => {
   // "score" 9x9 grids of cells by how many enemies they have.
   // (9x9 is just illustrative, it could be a different size)
   // then, colonize or atack a cell that's the closest to the center of the most clustered bucket
@@ -54,16 +64,36 @@ const aggressor: Ai = ({player: self, possibleMoves, occupiedCells}): PossibleMo
   let pickedMove: PossibleMove | undefined;
 
   if (bestCoord) {
-    // TODO evaluate & pick the most aggressive move possible
-    // possibleMoves
-    //   .map()
-    pickedMove = pick(possibleMoves)
+    // higher is better
+    const moveOrder = {
+      "ATTACK": 1000,
+      "COLONIZE": 500,
+      "PASS": 0
+    }
+    const sortedArr = possibleMoves.sort((a, b) => {
+      if(moveOrder[a.type] !== moveOrder[b.type]) {
+        return (moveOrder[b.type] - moveOrder[a.type]);
+      }
+
+      const aScore: number = a.type === "PASS"
+        ? 0
+        : (bucket.getScoreOfBucket(a.targetCell.coords) || 0)
+
+      const bScore: number = a.type === "PASS"
+        ? 0
+        : (bucket.getScoreOfBucket(a.targetCell.coords) || 0)
+
+      const score = bScore - aScore;
+      return score;
+    });
+
+    pickedMove = sortedArr[0];
   } else {
     // there are no enemies, probably. Do anything.
     pickedMove = pick(possibleMoves)
   }
 
-  return pick(possibleMoves) || { type: 'PASS' };
+  return pickedMove || { type: "PASS" }
 }
 
-export default aggressor;
+export default smartAggressor;

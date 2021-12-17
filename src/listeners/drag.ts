@@ -9,7 +9,6 @@ const dragHoc = (state: State, onDrag: () => void) => {
   const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 
   canvas.addEventListener('mousedown', function(evt) {
-    console.log('mousedown');
     isDrawing = true;
     clickOrigin = { x: evt.clientX, y: evt.clientY };
     cameraOrigin = {...state.camera.origin}
@@ -19,7 +18,6 @@ const dragHoc = (state: State, onDrag: () => void) => {
     if (!isDrawing) {
       return;
     }
-    console.log('mousemove');
 
     const clickCoords: Coords = {
       x: evt.clientX,
@@ -34,7 +32,6 @@ const dragHoc = (state: State, onDrag: () => void) => {
   })
 
   canvas.addEventListener('wheel', (evt) => {
-    console.log('wheel event triggered');
     const event = evt as unknown as WheelEvent;
     
     evt.preventDefault();
@@ -56,7 +53,6 @@ const dragHoc = (state: State, onDrag: () => void) => {
   })
 
   canvas.addEventListener('mouseup', () => {
-    console.log('mouseup');
     isDrawing = false;
     if (lastCameraOrigin) {
       state.camera.origin = lastCameraOrigin;

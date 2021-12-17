@@ -18,7 +18,10 @@ export type Camera = {
 
 export type State = {
   players: Player[],
-  camera: Camera
+  camera: Camera,
+  settings: {
+    entropy: number
+  }
 }  
 
 export type PossibleMove = 

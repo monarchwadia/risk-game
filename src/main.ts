@@ -10,6 +10,7 @@ import dragHoc from "./listeners/drag";
 import clearCanvas from "./view/clearCanvas";
 import aggressor from "./ai/aggressor";
 import scaredycat from "./ai/scaredycat";
+import smartAggressor from "./ai/smartAggressor";
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 
@@ -31,7 +32,7 @@ const state: State = {
     },
     {
       color: 'green',
-      ai: aggressor,
+      ai: smartAggressor,
       cells: [
         coords(25, 25),
       ]
@@ -40,6 +41,9 @@ const state: State = {
   camera: {
     origin: coords(-100,-100),
     zoom: 5
+  },
+  settings: {
+    entropy: 0
   }
 };
 

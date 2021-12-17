@@ -25,6 +25,10 @@ const play = (state: State) => {
       case "ATTACK":
         // player.cells.push(move.targetCell.coords);
         move.targetCell.owner.cells = move.targetCell.owner.cells.filter(cell => cell.x !== move.targetCell.coords.x || cell.y !== move.targetCell.coords.y)
+        player.cells.push({
+          x: move.targetCell.coords.x,
+          y: move.targetCell.coords.y
+        })
         break;
       case "COLONIZE":
         player.cells.push(move.targetCell.coords);
