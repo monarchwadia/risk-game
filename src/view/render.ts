@@ -3,6 +3,7 @@ import { Component } from "./component.type";
 import { SQUARE_BORDER } from "../constants";
 import {  subtractCoords } from "../utils";
 import ScoreComponent from "./score.component";
+import ToolboxComponent from "./toolbox.component";
 
 const drawRect = (ctx: CanvasRenderingContext2D, coords: Coords, color: string, camera: Camera) => {
   const { x, y } = subtractCoords(coords, camera.origin)
@@ -30,6 +31,7 @@ const render: Component<{ state: State}> = ({state}) => {
   // add score
 
   ScoreComponent({canvas, players: state.players});
+  ToolboxComponent({ canvas })
 }
 
 export default render;
