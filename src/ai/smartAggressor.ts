@@ -88,7 +88,7 @@ const smartAggressor: Ai = ({player: self, possibleMoves, occupiedCells}): Possi
     });
 
     pickedMove = sortedArr[0];
-    console.log("PICKED MOVE", pickedMove)
+    // console.log("PICKED MOVE", pickedMove)
   } else {
     // there are no enemies, probably. Do anything.
     pickedMove = pick(possibleMoves)

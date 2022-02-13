@@ -17,6 +17,10 @@ export type Camera = {
   zoom: number
 }
 
+export type Tools = {
+  selected?: Player
+}
+
 export type State = {
   players: Player[],
   camera: Camera,

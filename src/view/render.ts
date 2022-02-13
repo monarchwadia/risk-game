@@ -31,7 +31,7 @@ const render: Component<{ state: State}> = ({state}) => {
   // add score
 
   ScoreComponent({canvas, players: state.players});
-  ToolboxComponent({ canvas })
+  ToolboxComponent({ canvas, players: state.players })
 }
 
 export default render;

@@ -1,4 +1,4 @@
-import { Coords } from "../types";
+import { Coords, Player } from "../types";
 import { Component } from "./component.type";
 
 const ORIGIN: Coords = {
@@ -6,23 +6,37 @@ const ORIGIN: Coords = {
   y: 120
 }
 
-const DIMENSIONS: Coords = {
-  x: 200,
-  y: 40
-}
+const OFFSET = 10;
+const SQUARE_SIZE = 25;
 
 type Props = {
-
+  players: Player[]
 }
-const ToolboxComponent: Component<Props> = ({canvas}) => {
+const ToolboxComponent: Component<Props> = ({canvas, players}) => {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  ctx.fillStyle = "darkblue"
-  ctx.strokeStyle = "gold"
+  players.forEach((p, i) => {
+    ctx.fillStyle = p.color;
+    const initial = p.name[0].toUpperCase();
 
-  ctx.strokeRect(ORIGIN.x, ORIGIN.y, DIMENSIONS.x, DIMENSIONS.y);
-  ctx.fillRect(ORIGIN.x, ORIGIN.y, DIMENSIONS.x, DIMENSIONS.y);
+    const xOffset = ORIGIN.x + ((OFFSET + SQUARE_SIZE) * i);
+
+    // draw the square
+    ctx.fillRect(xOffset, ORIGIN.y, SQUARE_SIZE, SQUARE_SIZE);
+
+    // write the initial
+    ctx.textBaseline = "top";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "black";
+    ctx.font = "bold 21px sans-serif";
+    const textXOffset = xOffset + 12;
+    const textYOffset = ORIGIN.y + 2;
+    ctx.fillText(initial, textXOffset, textYOffset, SQUARE_SIZE)
+    ctx.strokeText(initial, textXOffset, textYOffset, SQUARE_SIZE)
+  })
+
 }
 
 export default ToolboxComponent;
