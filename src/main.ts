@@ -17,6 +17,7 @@ const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanva
 const state: State = {
   players: [
     {
+      name: "Scaredy Cat",
       color: 'blue',
       ai: scaredycat,
       cells: [
@@ -24,6 +25,7 @@ const state: State = {
       ],
     },
     {
+      name: "Aggressor",
       color: 'red',
       ai: aggressor,
       cells: [
@@ -31,6 +33,7 @@ const state: State = {
       ]
     },
     {
+      name: "Aggressor 2.0 (WIP)",
       color: 'green',
       ai: smartAggressor,
       cells: [

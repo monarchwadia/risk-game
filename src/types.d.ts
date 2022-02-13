@@ -6,6 +6,7 @@ export type Coords = {
 }
 
 export type Player = {
+  name: string,
   color: string,
   cells: Coords[],
   ai: Ai
