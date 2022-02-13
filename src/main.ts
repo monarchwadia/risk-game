@@ -17,21 +17,21 @@ const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanva
 const state: State = {
   players: [
     {
-      color: 'black',
+      color: 'blue',
       ai: scaredycat,
       cells: [
         coords(20, 20),
       ],
     },
     {
-      color: 'pink',
+      color: 'red',
       ai: aggressor,
       cells: [
         coords(15, 15),
       ]
     },
     {
-      color: 'cyan',
+      color: 'green',
       ai: smartAggressor,
       cells: [
         coords(25, 25),
